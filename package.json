@@ -1,0 +1,25 @@
+{
+  "name": "factorio-server-manager",
+  "version": "1.0.0",
+  "description": "factorio headless server manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pcnate/factorio-server-manager.git"
+  },
+  "keywords": [
+    "factorio"
+  ],
+  "author": "Nathan Baker <pcnate@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pcnate/factorio-server-manager/issues"
+  },
+  "homepage": "https://github.com/pcnate/factorio-server-manager#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
