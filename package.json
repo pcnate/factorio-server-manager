@@ -21,5 +21,8 @@
   "homepage": "https://github.com/pcnate/factorio-server-manager#readme",
   "dependencies": {
     "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "@angular/cli": "^13.1.2"
   }
 }
