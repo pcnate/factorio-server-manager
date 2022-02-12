@@ -1,0 +1,6 @@
+<div *ngFor="let command of commandHistory; index as index">
+  <hr *ngIf="index > 0">
+  <app-date-bracket [date]="command.time"></app-date-bracket>
+  <span>{{ command.command }}</span>
+  <div>{{ command.response }}</div>
+</div>

@@ -1,0 +1,19 @@
+:host {
+  padding: 10px;
+
+  .mat-card {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.server-settings-grid {
+  padding: 15px;
+  padding-top: 0px;
+
+  div > .mat-grid-tile > .mat-grid-tile-content {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    padding: 15px;
+  }
+}

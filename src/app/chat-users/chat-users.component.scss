@@ -1,0 +1,41 @@
+:host {
+
+  .mat-list {
+    padding-top: 0px;
+  }
+}
+
+.user {
+  margin-left: 15px;
+}
+
+.user-presence {
+  color: rgb(92, 11, 11);
+
+}
+.user-presence.user-online {
+  color: rgba(28, 90, 28, 0.452);
+}
+
+.no-padding.no-padding {
+  .mat-list-base,
+  .mat-list-item,
+  .mat-list-item-content {
+    padding-left:  3px;
+    padding-right: 3px;
+  }
+}
+
+.user-admin {
+  color: rgb(10, 10, 88);
+}
+.user.user-admin::before {
+  content: '@';
+  margin-left: -15px;
+}
+.user-banlisted {
+  color: rgb(92, 11, 11);
+}
+.user-whitelisted {
+  
+}

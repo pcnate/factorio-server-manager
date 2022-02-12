@@ -1,0 +1,23 @@
+<mat-grid-list [cols]="$cols | async" rowHeight="100px" class="landing-page-grid">
+
+  <mat-grid-tile [colspan]="minCols < 2 ? 1 : 2" rowspan="3">
+    <app-game-details></app-game-details>
+  </mat-grid-tile>
+
+  <!-- <mat-grid-tile>2</mat-grid-tile>
+  <mat-grid-tile>3</mat-grid-tile> -->
+  <mat-grid-tile colspan="1" rowspan="10">
+    <mat-card class="mat-elevation-z8" style="width: 100%;">
+      <mat-card-header>
+        <mat-card-title>Players</mat-card-title>
+        <mat-card-subtitle>{{ onlineUserCount }} Online</mat-card-subtitle>
+      </mat-card-header>
+      <app-chat-users></app-chat-users>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="minCols < 2 ? 1 : 2" rowspan="6">
+    <app-game-saves></app-game-saves>
+  </mat-grid-tile>
+
+</mat-grid-list>

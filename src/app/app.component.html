@@ -1,0 +1,34 @@
+<mat-toolbar class="toolbar" class="mat-elevation-z1">
+  <button mat-icon-button class="menu-button" aria-label="Exand menu" (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+  <span class="middle-spacer"></span>
+  <a mat-button class="github-button" href="https://github.com/pcnate/factorio-server-manager" aria-label="GitHub Repository" aria-disabled="false">
+    <span class="mat-button-wrapper">
+      <img _ngcontent-ubl-c48="" src="../../../assets/GitHub-Mark-120px-plus.png" alt="" class="github-logo">
+      GitHub
+    </span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
+      class="mat-button-focus-overlay"></span>
+  </a>
+  <a mat-button routerLink="/login" *ngIf="!auth.isAuthenticated()" class="menu-button">
+    login
+  </a>
+  <button mat-icon-button class="menu-button favorite-icon" aria-label="My Account" routerLink="account" *ngIf="auth.isAuthenticated()">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="main-content-container">
+  <mat-sidenav-container class="drawer-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <mat-sidenav #snav opened [mode]="mobileQuery.matches ? 'over' : 'side'" fixedTopGap="56">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

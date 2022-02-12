@@ -1,0 +1,32 @@
+.user {
+  min-width: 100px;
+  max-width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.toggle-users-button {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  z-index: 1010;
+}
+
+.users-sidenav {
+  padding-left: 5px;
+}
+
+.user.join,
+.user.joined {
+  max-width: 500px;
+  color: rgb(52,161,64);
+}
+.user.left {
+  max-width: 500px;
+  color: rgb(138,37,41);
+}
+
+.chat-container {
+  height: 100%;
+}

@@ -1,0 +1,23 @@
+<button class="toggle-users-button" [matBadge]="onlineUserCount" matBadgeColor="warn" [matBadgeHidden]="showUsers" matBadgePosition="below before" matBadgeSize="small" type="button" mat-icon-button (click)="toggleUsers()">
+  <mat-icon>people</mat-icon>
+</button>
+
+<mat-drawer-container class="chat-container" autosize>
+  
+  <mat-drawer class="users-sidenav" mode="side" position="end" [opened]="showUsers">
+    <h3>{{ onlineUserCount }} Online</h3>
+    <app-chat-users></app-chat-users>
+  </mat-drawer>
+
+  <div class="chat-content">
+    <mat-list class="condensed">
+      <mat-list-item *ngFor="let chat of chats">
+        <app-date-bracket [date]="chat.date"></app-date-bracket>
+        <span class="user" [ngClass]="chat.message">{{ chat.user }} <span *ngIf="chat.type !== 'chat'">{{ chat.message }}</span></span>
+        <span *ngIf="chat.type === 'chat'"class="message">&nbsp;-&nbsp;{{ chat.message }}</span>
+      </mat-list-item>
+    </mat-list>
+  </div>
+    
+</mat-drawer-container>
+

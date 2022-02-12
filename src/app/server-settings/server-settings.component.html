@@ -1,0 +1,28 @@
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Control</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <mat-slide-toggle [checked]="serverRunning" (click)="toggle()">{{ status }}</mat-slide-toggle>
+  </mat-card-content>
+</mat-card>
+
+<br>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>RCON</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <app-rcon-log></app-rcon-log>
+  
+    <input mat-input [(ngModel)]="command" #input (keypress)="checkSubmit( $event )" (keyup.arrowup)="history('up')" (keyup.arrowdown)="history('down')" />
+    <button mat-button (click)="sendCommand()" [disabled]="!rconConnected">Send</button>
+
+  </mat-card-content>
+  
+</mat-card>
+

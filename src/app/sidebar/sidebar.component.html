@@ -1,0 +1,7 @@
+<mat-nav-list>
+  <a mat-list-item routerLink="/">home</a>
+  <a mat-list-item routerLink="/chat">chat</a>
+  <a mat-list-item routerLink="/logs"     [disabled]="!auth.isAuthenticated()">logs</a>
+  <a mat-list-item routerLink="/settings" [disabled]="!auth.isAuthenticated()">settings</a>
+  <a mat-list-item routerLink="/about">about</a>
+</mat-nav-list>

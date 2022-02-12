@@ -1,0 +1,45 @@
+<mat-card class="mat-elevation-z8">
+  <mat-card-header>
+    <mat-card-title>Saves</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.date | date:'yyyyMMdd HH:mm:ss' }}</td>
+      </ng-container>
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="size">
+        <th mat-header-cell *matHeaderCellDef>Size</th>
+        <td mat-cell *matCellDef="let element">{{ element.size | filesize }}</td>
+      </ng-container>
+
+      <ng-component matColumnDef="download">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <a mat-icon-button [href]="'/download/saves/' + element.name">
+            <mat-icon>download</mat-icon>
+          </a>
+        </td>
+      </ng-component>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="2">No data</td>
+      </tr>
+
+    </table>
+    
+  </mat-card-content>
+
+</mat-card>

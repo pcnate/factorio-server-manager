@@ -1,0 +1,8 @@
+<mat-list class="condensed no-padding">
+  <mat-list-item *ngFor="let user of users">
+    <span class="user-presence" [ngClass]="{ 'user-online': user.online }">●</span>
+    <span class="user">{{ user.user }}</span>
+    <!-- <span *ngIf="user.type !== 'user'" [ngClass]="user.message">{{ user.message }}</span>
+    <span *ngIf="user.type === 'user'"class="message">&nbsp;-&nbsp;{{ user.message }}</span> -->
+  </mat-list-item>
+</mat-list>
