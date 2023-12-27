@@ -317,6 +317,12 @@ async function startServer( type, socket, data ) {
   console.log( gt(), `starting game server` );
   let binary = '/opt/factorio/bin/x64/factorio';
 
+  if ( !fs.existsSync( binary ) ) {
+    console.log( gt(), `binary does not exist: '${ binary }'` );
+    emit( 'serverStopped', { reason: 'binary not found' } );
+    return;
+  }
+
   let args = [
     '--start-server',    '/opt/factorio/saves/20220110.zip',
     '--server-settings', '/opt/factorio/data/server-settings.json',
