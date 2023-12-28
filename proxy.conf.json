@@ -1,7 +1,16 @@
 {
   "/socket.io/*": {
-    "target": "http://localhost:3000/socket.io/",
+    "target": "http://localhost:3000",
     "secure": false,
-    "ws": true
+    "ws": true,
+    "changeOrigin": true
+  },
+  "/download/*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "ws": true,
+    "pathRewrite": {
+      "^/download": ""
+    }
   }
 }

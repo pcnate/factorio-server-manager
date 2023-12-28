@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "npm run build:licenses && npm run build:webapp && npm run build:server && npm run build:docker",
+    "build:licenses": "node ./scripts/tplGenerator.js",
+    "build:webapp": "ng build",
+    "build:server": "echo 'no build script for server' || exit 1",
+    "build:docker": "docker build -f ./Dockerfile -t factorio-server-manager .",
+    "run:docker": "npm run stop:docker && npm run rm:docker && docker run -it -d --name factorio-server-manager -p 3000:3000 -p 34197:34197/udp --env-file .env -v factorio:/volume/factorio factorio-server-manager",
+    "stop:docker": "docker stop factorio-server-manager || exit 0",
+    "rm:docker": "docker rm factorio-server-manager || exit 0",
     "watch": "ng build --watch --configuration development",
-    "postinstall": "node ./scripts/tplGenerator.js",
     "test": "ng test"
   },
   "repository": {
@@ -56,6 +62,7 @@
     "socket.io-client": "^4.4.1",
     "third-party-license-generator": "^1.0.6",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

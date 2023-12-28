@@ -324,7 +324,7 @@ async function startServer( type, socket, data ) {
   }
 
   let args = [
-    '--start-server',    '/opt/factorio/saves/20220110.zip',
+    '--start-server-load-latest',
     '--server-settings', '/opt/factorio/data/server-settings.json',
     '--rcon-bind', `${ RCON_HOST }:${ RCON_PORT }`,
     '--rcon-password', RCON_PASS,
@@ -386,6 +386,10 @@ async function parseGameStdOutAndErr( data = '' ) {
     .filter( x => !!x && x !== '' );
 }
 
+
+/**
+ * check the server periodically
+ */
 async function checkPeriodically() {
   if( rconConnected ) {
     status.time      = ( await rconCommand('time')       || '' ).trim();
@@ -413,6 +417,9 @@ async function checkPeriodically() {
 }
 
 
+/**
+ * check on server start
+ */
 async function checkOnServerStart() {
   if( rconConnected ) {
     await checkPeriodically();
@@ -612,17 +619,30 @@ async function makeSocketIoBindings() {
 async function getLicense( type, socket, data ) {
   let responseMessage = data?.responseMessage;
   let file = path.join( process.cwd(), 'thirdPartyLicense.txt' );
-  if ( !fs.existsSync( file ) ) {
-    console.error('thirdPartyLicense.txt not found');
-    // response.status( 404 ).send('thirdPartyLicense.txt not found');
-    emit( responseMessage, { error: true, license: 'document not found' }, socket );
+  
+  if ( fs.existsSync( file ) ) {
+    let contents = ( fs.readFileSync( file ) || '' ).toString();
+    emit( responseMessage, { license: contents }, socket );
     return;
   }
 
-  let contents = ( fs.readFileSync( file ) || '' ).toString();
-  emit( responseMessage, { license: contents }, socket );
+  file = path.join( process.cwd(), 'dist', 'webapp', 'thirdPartyLicense.txt' );
+  if ( fs.existsSync( file ) ) {
+    let contents = ( fs.readFileSync( file ) || '' ).toString();
+    emit( responseMessage, { license: contents }, socket );
+    return;
+  }
+
+  console.error('thirdPartyLicense.txt not found');
+  // response.status( 404 ).send('thirdPartyLicense.txt not found');
+  emit( responseMessage, { error: true, license: 'document not found' }, socket );
+  return;
 }
 
+
+/**
+ * download a save file
+ */
 app.get('/download/saves/:saveName', async( request, response ) => {
   const fname = request?.params?.saveName || null;
   if ( !fname ) {
@@ -640,15 +660,24 @@ app.get('/download/saves/:saveName', async( request, response ) => {
   }
 });
 
+
+/**
+ * whether to use the dist folder or the dev server
+ */
 if ( process.env.useDistFolder === 'true' ) {
   let distFolder = path.join( path.dirname( __dirname ), 'dist', 'webapp' );
   console.log({ distFolder })
-  app.use( '*', express.static( distFolder ) );
+  app.use( '/', express.static( distFolder ) );
+  app.get( '*', ( request, response ) => response.sendFile( path.join( distFolder, 'index.html' ) ) );
 } else {
   require('./dev-server')( app, server, io );
 }
 
-server.listen( port, '127.0.0.1', async () => {
+
+/**
+ * start the server
+ */
+server.listen( port, process?.env?.listen_address || '0.0.0.0', async () => {
   let address = server.address();
   io = socketIO( server );
   await makeSocketIoBindings();
